@@ -34,8 +34,9 @@ class usuario extends Controller
     {
         $usuario = new Modelo();
         $usuario->email = $request->email;// "test@email.com";
-        $usuario->password = $request->password;//"123456";
-
+        $usuario->password = hash('sha512', $request->password);//"123456";
+        
+        
         $usuario->save();
 
         return($usuario);
