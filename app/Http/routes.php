@@ -13,6 +13,7 @@
 
 Route::post('/api/usuarios/registro', 'usuario@store');
 Route::get('/api/usuarios/all', 'usuario@test');
+Route::get('/api/usuarios/exists', 'usuario@exists');
 
 
 Route::get('/', function () {

@@ -41,6 +41,14 @@ class usuario extends Controller
         return($usuario);
     }
 
+
+    public function exists(Request $request)
+    {
+        
+        $cant = Modelo::where('email', $request->input('emailSignUp'))->get()->count(); 
+        return $cant == 0 ? 'true' : 'false';
+    }
+
     /**
      * Display the specified resource.
      *
