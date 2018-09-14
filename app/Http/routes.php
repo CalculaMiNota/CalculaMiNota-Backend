@@ -11,6 +11,10 @@
 |
 */
 
+Route::post('/api/usuarios/registro', 'usuario@store');
+Route::get('/api/usuarios/all', 'usuario@test');
+
+
 Route::get('/', function () {
     return view('welcome');
 });
