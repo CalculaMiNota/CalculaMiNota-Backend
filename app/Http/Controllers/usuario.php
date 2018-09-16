@@ -273,7 +273,22 @@ class usuario extends Controller
     {
         Auth::guard($this->getGuard())->logout();
 
-        return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
+        return response()->json([
+        'logged' => Auth::check() ? 'true':'false'
+        ]); //redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
+    }
+
+    public function getUserInfo()
+    {
+        if($this->isLogged()){
+            return response(json_encode(Auth::user()));
+        }
+        else{
+            return response()->json([
+                'logged' => 'false'
+            ]);
+        }
+
     }
 
     /**

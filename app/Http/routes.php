@@ -26,8 +26,10 @@ Route::get('login', 'usuario@showLoginForm');
 Route::post('login', 'usuario@login');
 Route::post('api/usuarios/login', 'usuario@login');
 Route::get('api/usuarios/isLogged', 'usuario@isLogged');
-
+Route::get('api/usuarios/logout', 'usuario@logout');
 Route::get('logout', 'usuario@logout');
+Route::get('api/usuarios/getUserInfo', 'usuario@getUserInfo');
+
 
 // Registration Routes...
 Route::get('register', 'usuario@showRegistrationForm');
