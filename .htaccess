@@ -1,4 +1,4 @@
-Header set Access-Control-Allow-Origin "http://localhost:4200"
+Header set Access-Control-Allow-Origin "*"
 Header set Access-Control-Allow-Headers "X-Requested-With,content-type"
 Header set Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT, PATCH, DELETE"
 Header set Access-Control-Allow-Credentials "true"
