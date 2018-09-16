@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
@@ -380,6 +382,7 @@ class usuario extends Controller
      */
     public function register(Request $request)
     {
+        /*
         $validator = $this->validator($request->all());
 
         if ($validator->fails()) {
@@ -387,10 +390,42 @@ class usuario extends Controller
                 $request, $validator
             );
         }
+        */
 
         Auth::guard($this->getGuard())->login($this->create($request->all()));
 
-        return 'ok';// redirect($this->redirectPath());
+        return response()->json([
+            'logged' => Auth::check() ? 'true':'false'
+        ]);
     }
 
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:6|confirmed',
+        ]);
+    }
+
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param  array  $data
+     * @return User
+     */
+    protected function create(array $data)
+    {
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+        ]);
+    }
 }
