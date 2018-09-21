@@ -3,7 +3,7 @@
         Options -MultiViews -Indexes
     </IfModule>
 
-    Header add Access-Control-Allow-Origin "https://calculaminota.herokuapp.com, http://calculaminota.herokuapp.com, http://localhost:4200"
+    Header add Access-Control-Allow-Origin "https://calculaminota.herokuapp.com"
     
 
     Header set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept"
