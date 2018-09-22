@@ -147,8 +147,7 @@ class usuario extends Controller
         return $this->login($request);
     }
 
-    /**
-     * Handle a login request to the application.
+    /*
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
