@@ -10,7 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+header('Access-Control-Allow-Origin: *');
 Route::post('/api/usuarios/registro', 'usuario@store');
 
 Route::get('/api/usuarios/all', 'usuario@test');
@@ -28,6 +28,7 @@ Route::post('login', 'usuario@login');
 Route::post('api/usuarios/login', 'usuario@login');
 Route::get('api/usuarios/isLogged', 'usuario@isLogged');
 Route::get('api/usuarios/logout', 'usuario@logout');
+Route::post('api/usuarios/password/email', 'usuario@sendResetLinkEmail');
 Route::get('logout', 'usuario@logout');
 Route::get('api/usuarios/getUserInfo', 'usuario@getUserInfo');
 
@@ -39,7 +40,7 @@ Route::post('api/usuarios/register', 'usuario@register');
 
 // Password Reset Routes...
 Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
-Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail');
+Route::post('password/email', 'usuario@sendResetLinkEmail');
 Route::post('password/reset', 'Auth\PasswordController@reset');
 
 //Route::auth();

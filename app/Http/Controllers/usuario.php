@@ -7,6 +7,9 @@ use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Str;
+use Illuminate\Mail\Message;
+use Illuminate\Support\Facades\Password;
 
 use App\Http\Requests;
 use Illuminate\Foundation\Auth\RedirectsUsers;
@@ -427,4 +430,52 @@ class usuario extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    public function sendResetLinkEmail(Request $request)
+    {
+        $broker = $this->getBroker();
+        $response = Password::broker($broker)->sendResetLink($this->getSendResetLinkEmailCredentials($request), $this->resetEmailBuilder());
+        switch ($response) {
+            case Password::RESET_LINK_SENT:
+                return $this->getSendResetLinkEmailSuccessResponse($response);
+            case Password::INVALID_USER:
+            default:
+                return $this->getSendResetLinkEmailFailureResponse($response);
+        }
+    }
+
+
+    public function getBroker()
+    {
+        return property_exists($this, 'broker') ? $this->broker : null;
+    }
+
+    protected function getSendResetLinkEmailCredentials(Request $request)
+    {
+        return $request->only('email');
+    }
+
+    protected function resetEmailBuilder()
+    {
+        return function (Message $message) {
+            $message->subject($this->getEmailSubject());
+        };
+    }
+
+    protected function getEmailSubject()
+    {
+        return property_exists($this, 'subject') ? $this->subject : 'Your Password Reset Link';
+    }
+
+    protected function getSendResetLinkEmailSuccessResponse($response)
+    {
+        return redirect()->back()->with('status', trans($response));
+    }
+    protected function getSendResetLinkEmailFailureResponse($response)
+    {
+        return redirect()->back()->withErrors(['email' => trans($response)]);
+    }
+
+
+
 }
