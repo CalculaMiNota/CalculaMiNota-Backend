@@ -43,6 +43,7 @@ Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
 Route::post('password/email', 'usuario@sendResetLinkEmail');
 Route::post('password/reset', 'Auth\PasswordController@reset');
 
+Route::get('api/cursos', 'CursoController@index');
 Route::post('api/cursos', 'CursoController@store');
 Route::post('api/rubros', 'RubroController@store');
 

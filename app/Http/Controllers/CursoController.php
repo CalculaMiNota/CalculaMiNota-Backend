@@ -17,7 +17,9 @@ class CursoController extends Controller
      */
     public function index()
     {
-        //
+        $usuario = User::where('email', $_GET['email'])->first();
+        $cursos = Curso::where('user_id', $usuario->id)->get();
+        return ($cursos);
     }
 
     /**
