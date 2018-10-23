@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App;
 use App\Curso;
 use App\User;
+use App\Rubro;
 class CursoController extends Controller
 {
     /**
@@ -18,7 +19,8 @@ class CursoController extends Controller
     public function index()
     {
         $usuario = User::where('email', $_GET['email'])->first();
-        $cursos = Curso::where('user_id', $usuario->id)->get();
+        $cursos = Curso::where('user_id', $usuario->id)->with('rubros')->get();
+
         return ($cursos);
     }
 
