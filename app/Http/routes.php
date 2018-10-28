@@ -10,7 +10,6 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-header('Access-Control-Allow-Origin: *');
 Route::post('/api/usuarios/registro', 'usuario@store');
 
 Route::get('/api/usuarios/all', 'usuario@test');
