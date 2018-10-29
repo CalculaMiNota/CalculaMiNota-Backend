@@ -35,7 +35,7 @@ class RubroController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storeMultiple(Request $request)
     {
         $curso = Curso::where('id', $request->cursoId)->first();
 
@@ -52,6 +52,19 @@ class RubroController extends Controller
         }
         return Rubro::where('curso_id', $curso->id)->get();
     }
+
+    public function store(Request $request)
+    {
+        $rubro = Rubro::where('id', $request->id)->first();
+        $rubro->nombre = $request->nombre;
+        $rubro->porcentaje = $request->porcentaje;
+        $rubro->nota_actual = $request->nota_actual;
+        $rubro->save();
+
+        return $rubro;
+    }
+
+
 
     /**
      * Display the specified resource.
