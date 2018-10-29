@@ -40,6 +40,7 @@ class RubroController extends Controller
         $curso = Curso::where('id', $request->cursoId)->first();
 
         $rubros = $request->rubros;
+        $rubrosNuevos = array();
         foreach ($rubros as $rubro){
             $rubroNuevo = new Rubro();
             $rubroNuevo->nombre = $rubro['nombre'];
@@ -49,8 +50,9 @@ class RubroController extends Controller
             $rubroNuevo->status = 1;
             $rubroNuevo->curso_id = $curso->id;
             $rubroNuevo->save();
+            array_push($rubrosNuevos, $rubroNuevo);
         }
-        return Rubro::where('curso_id', $curso->id)->get();
+        return $rubrosNuevos;
     }
 
     public function store(Request $request)

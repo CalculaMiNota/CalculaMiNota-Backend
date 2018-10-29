@@ -42,16 +42,32 @@ class CursoController extends Controller
      */
     public function store(Request $request)
     {
-        $curso = new Curso();
-        $usuario = User::where('email', $request->email)->first();
+        if($request->id  != null)
+        {
+            $curso = Curso::where('id', $request->id)->first();
 
-        $curso->nombre = $request->nombreCurso;
-        $curso->puntaje = $request->puntajeTotal;
-        $curso->user_id = $usuario->id;
+            $curso->nombre = $request->nombreCurso;
+            $curso->puntaje = $request->puntajeTotal;
 
-        $curso->save();
+            $curso->save();
 
-        return($curso);
+            return($curso);
+        }
+        else
+        {
+            $curso = new Curso();
+            $usuario = User::where('email', $request->email)->first();
+
+            $curso->nombre = $request->nombreCurso;
+            $curso->puntaje = $request->puntajeTotal;
+            $curso->user_id = $usuario->id;
+
+            $curso->save();
+
+            return($curso);
+        }
+
+
     }
 
     /**
