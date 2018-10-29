@@ -44,6 +44,7 @@ Route::post('password/reset', 'Auth\PasswordController@reset');
 
 Route::get('api/cursos', 'CursoController@index');
 Route::post('api/cursos', 'CursoController@store');
+Route::post('api/cursos/delete', 'CursoController@remove');
 Route::post('api/rubros/multiple', 'RubroController@storeMultiple');
 Route::post('api/rubros', 'RubroController@store');
 

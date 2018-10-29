@@ -19,7 +19,7 @@ class CursoController extends Controller
     public function index()
     {
         $usuario = User::where('email', $_GET['email'])->first();
-        $cursos = Curso::where('user_id', $usuario->id)->with('rubros')->get();
+        $cursos = Curso::where('user_id', $usuario->id)->where('status', '=', 0)->with('rubros')->get();
 
         return ($cursos);
     }
@@ -113,5 +113,12 @@ class CursoController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function remove(Request $request){
+        $id = $request->id;
+        $curso = Curso::where('id', $id)->first();
+        $curso->status = -1;
+        $curso->save();
+        return $curso;
     }
 }
