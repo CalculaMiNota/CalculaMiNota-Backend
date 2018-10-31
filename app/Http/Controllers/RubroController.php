@@ -57,13 +57,23 @@ class RubroController extends Controller
 
     public function store(Request $request)
     {
-        $rubro = Rubro::where('id', $request->id)->first();
+
+        if ($request->id == ""){
+            $rubro = new Rubro();
+            $rubro->status = 1;
+            $rubro->curso_id = $request->curso_id;
+        }
+        else{
+            $rubro = Rubro::where('id', $request->id)->first();
+        }
+
         $rubro->nombre = $request->nombre;
         $rubro->porcentaje = $request->porcentaje;
         $rubro->nota_actual = $request->nota_actual;
         $rubro->save();
 
         return $rubro;
+
     }
 
 
