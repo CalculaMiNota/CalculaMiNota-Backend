@@ -469,11 +469,11 @@ class usuario extends Controller
 
     protected function getSendResetLinkEmailSuccessResponse($response)
     {
-        return redirect()->back()->with('status', trans($response));
+        return 'true';
     }
     protected function getSendResetLinkEmailFailureResponse($response)
     {
-        return redirect()->back()->withErrors(['email' => trans($response)]);
+        return 'false';
     }
 
 
