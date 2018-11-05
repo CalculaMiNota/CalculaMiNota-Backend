@@ -76,6 +76,22 @@ class RubroController extends Controller
 
     }
 
+    public function delete(Request $request)
+    {
+
+        if ($request->id == ""){
+            return [];
+        }
+        else{
+            $rubro = Rubro::where('id', $request->id)->first();
+        }
+
+        $rubro->status = -1;
+        $rubro->save();
+
+        return [];
+    }
+
 
 
     /**

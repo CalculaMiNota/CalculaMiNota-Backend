@@ -9,6 +9,6 @@ class Curso extends Model
     //
     public function rubros()
     {
-        return $this->hasMany('App\Rubro', 'curso_id');
+        return $this->hasMany('App\Rubro', 'curso_id')->where('status', '=', '1');
     }
 }
