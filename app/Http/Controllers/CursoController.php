@@ -48,6 +48,7 @@ class CursoController extends Controller
 
             $curso->nombre = $request->nombreCurso;
             $curso->puntaje = $request->puntajeTotal;
+            $curso->minimo = $request->minimo;
 
             $curso->save();
 
@@ -60,6 +61,7 @@ class CursoController extends Controller
 
             $curso->nombre = $request->nombreCurso;
             $curso->puntaje = $request->puntajeTotal;
+            $curso->minimo = $request->minimo;
             $curso->user_id = $usuario->id;
 
             $curso->save();

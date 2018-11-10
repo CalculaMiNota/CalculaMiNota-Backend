@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddNotaMinima' => $baseDir . '/database/migrations/2018_11_10_011938_add_nota_minima.php',
     'CreateCursosTable' => $baseDir . '/database/migrations/2018_09_22_020048_create_cursos_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreateRubrosTable' => $baseDir . '/database/migrations/2018_10_12_160100_create_rubros_table.php',

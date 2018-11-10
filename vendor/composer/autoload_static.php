@@ -275,6 +275,7 @@ class ComposerStaticInit07bcdb4ad5e5957868c6155f7ab499d0
     );
 
     public static $classMap = array (
+        'AddNotaMinima' => __DIR__ . '/../..' . '/database/migrations/2018_11_10_011938_add_nota_minima.php',
         'CreateCursosTable' => __DIR__ . '/../..' . '/database/migrations/2018_09_22_020048_create_cursos_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreateRubrosTable' => __DIR__ . '/../..' . '/database/migrations/2018_10_12_160100_create_rubros_table.php',
