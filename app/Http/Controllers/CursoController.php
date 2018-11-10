@@ -9,6 +9,9 @@ use App;
 use App\Curso;
 use App\User;
 use App\Rubro;
+use Illuminate\Support\Facades\Auth;
+use DB;
+
 class CursoController extends Controller
 {
     /**
@@ -18,10 +21,16 @@ class CursoController extends Controller
      */
     public function index()
     {
-        $usuario = User::where('email', $_GET['email'])->first();
-        $cursos = Curso::where('user_id', $usuario->id)->where('status', '=', 0)->with('rubros')->get();
+        $user = $this->user();
 
-        return ($cursos);
+        if($user)
+        {
+            $usuario = User::where('email', $user->email)->first();
+            $cursos = Curso::where('user_id', $usuario->id)->where('status', '=', 0)->with('rubros')->get();
+            return ($cursos);
+        }
+        return [];
+
     }
 
     /**
@@ -81,6 +90,28 @@ class CursoController extends Controller
     public function show($id)
     {
         //
+    }
+
+    private function user(){
+        return Auth::user();
+    }
+
+    public function dashboardData(){
+        $user = $this->user();
+
+        if($user)
+        {
+            $data = [];
+            $data = DB::select("SELECT c.nombre, c.puntaje, c.minimo, ROUND(sum((ru.porcentaje / c.puntaje) * ru.nota_actual), 0) as nota_total
+                        FROM
+                            cursos AS c
+                                JOIN
+                            rubros AS ru ON (c.id = ru.curso_id)
+                        WHERE c.status = 0 and ru.status = 1 and c.user_id = $user->id
+                        GROUP BY c.nombre, c.puntaje, c.minimo");
+            return $data;
+        }
+        return [];
     }
 
     /**

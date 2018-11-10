@@ -48,7 +48,7 @@ Route::post('api/cursos/delete', 'CursoController@remove');
 Route::post('api/rubros/multiple', 'RubroController@storeMultiple');
 Route::post('api/rubros', 'RubroController@store');
 Route::post('api/rubros/delete', 'RubroController@delete');
-
+Route::get('api/dashboard/data', 'CursoController@dashboardData');
 //Route::auth();
 
 //Route::get('/home', 'HomeController@index');
