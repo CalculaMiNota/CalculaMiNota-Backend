@@ -467,7 +467,7 @@ class usuario extends Controller
 
     protected function getEmailSubject()
     {
-        return property_exists($this, 'subject') ? $this->subject : 'Your Password Reset Link';
+        return property_exists($this, 'subject') ? $this->subject : '[CalculaMiNota] Link para cambio de contraseña';
     }
 
     protected function getSendResetLinkEmailSuccessResponse($response)
