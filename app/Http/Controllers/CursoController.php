@@ -102,7 +102,7 @@ class CursoController extends Controller
         if($user)
         {
             $data = [];
-            $data = DB::select("SELECT c.nombre, c.puntaje, c.minimo, ROUND(sum((ru.porcentaje / c.puntaje) * ru.nota_actual), 0) as nota_total
+            $data = DB::select("SELECT c.id, c.nombre, c.puntaje, c.minimo, ROUND(sum((ru.porcentaje / c.puntaje) * ru.nota_actual), 0) as nota_total
                         FROM
                             cursos AS c
                                 JOIN
