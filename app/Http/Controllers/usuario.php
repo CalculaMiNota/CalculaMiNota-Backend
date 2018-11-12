@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Password;
 use App\Http\Requests;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use App\usuario as Modelo;
+use Session;
 
 class usuario extends Controller
 {
@@ -276,7 +277,7 @@ class usuario extends Controller
     public function logout()
     {
         Auth::guard($this->getGuard())->logout();
-
+        Session::flush();
         return response()->json([
         'logged' => Auth::check() ? 'true':'false'
         ]); //redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
@@ -437,7 +438,9 @@ class usuario extends Controller
         $response = Password::broker($broker)->sendResetLink($this->getSendResetLinkEmailCredentials($request), $this->resetEmailBuilder());
         switch ($response) {
             case Password::RESET_LINK_SENT:
-                return $this->getSendResetLinkEmailSuccessResponse($response);
+                return  response()->json([
+                            'status' => 'ok'
+                        ]);
             case Password::INVALID_USER:
             default:
                 return $this->getSendResetLinkEmailFailureResponse($response);
@@ -472,6 +475,39 @@ class usuario extends Controller
         return 'true';
     }
     protected function getSendResetLinkEmailFailureResponse($response)
+    {
+        return 'false';
+    }
+
+    protected function getResetCredentials(Request $request)
+    {
+        return $request->only('email', 'password', 'password_confirmation', 'token');
+    }
+
+    public function reset(Request $request)
+    {
+        $credentials = $this->getResetCredentials($request);
+        $broker = $this->getBroker();
+        $response = Password::broker($broker)->reset($credentials, function ($user, $password) {            
+            $this->resetPassword($user, $password);
+        });
+        
+        return [
+            'logged' => Auth::check() ? 'true':'false'
+        ];  
+    }
+
+    protected function resetPassword($user, $password)
+    {
+        $user->forceFill(['password' => bcrypt($password), 'remember_token' => Str::random(60)])->save();
+        Auth::guard($this->getGuard())->login($user);
+    }
+
+    protected function getResetSuccessResponse($response)
+    {
+        return 'true';
+    }
+    protected function getResetFailureResponse(Request $request, $response)
     {
         return 'false';
     }

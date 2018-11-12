@@ -38,9 +38,11 @@ Route::post('register', 'usuario@register');
 Route::post('api/usuarios/register', 'usuario@register');
 
 // Password Reset Routes...
-Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
-Route::post('password/email', 'usuario@sendResetLinkEmail');
-Route::post('password/reset', 'Auth\PasswordController@reset');
+// Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
+// Route::post('password/email', 'usuario@sendResetLinkEmail');
+// Route::post('password/reset', 'Auth\PasswordController@reset');
+
+Route::post('api/password/reset', 'usuario@reset');
 
 Route::get('api/cursos', 'CursoController@index');
 Route::post('api/cursos', 'CursoController@store');
