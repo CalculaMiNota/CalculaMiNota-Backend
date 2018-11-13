@@ -12,13 +12,13 @@
 */
 Route::post('/api/usuarios/registro', 'usuario@store');
 
-Route::get('/api/usuarios/all', 'usuario@test');
-Route::get('/api/usuarios/exists', 'usuario@exists');
+#Route::get('/api/usuarios/all', 'usuario@test');
+Route::get('api/usuarios/exists', 'usuario@exists');
 
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
 // Authentication Routes...
 Route::get('login', 'usuario@showLoginForm');
